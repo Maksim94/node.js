@@ -1,0 +1,13 @@
+.container {
+    width: 300px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 250px;
+}
+#getTime {
+    height: 50px;
+    font-size: 25px;
+}
+.time {
+    font-size: 25px;
+}
