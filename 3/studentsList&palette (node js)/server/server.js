@@ -1,56 +1,56 @@
 var http = require('http');
 var url = require('url');
 var fs = require('fs');
+var path = require('path');
 var baseRoot = '../client';
 
 function onRequest (request, response) {
-    var pathname = url.parse(request.url).pathname;
+    var pathname = url.parse(request.url).pathname,
+        contentType = getContentType(pathname);
 
-    if (pathname.indexOf('.html') != -1) {
-        fs.readFile('client/index.html', function (err, data){
-            if (err) {
-                response.end("File wasn't found");
-            }
+    if (pathname === '/') {
+        pathname = '/index.html';
+    } if (pathname === '/getStudents') {
+        pathname = '/app/studentsList/students.json';
+    }
 
-            response.writeHead(200, {"Content-Type": "text/html"});
-            response.end(data);
-        });
-    } else if (pathname.indexOf('.css') != -1) {
-        fs.readFile(baseRoot + pathname, function (err, data) {
-            if (err) {
-                response.end("File wasn't found");
-            }
-            response.writeHead(200, {"Content-Type": "text/css"});
-            response.end(data);
-        });
-    } else if (pathname.indexOf('.js') != -1) {
-        fs.readFile(baseRoot + pathname, function (err, data) {
-            if (err) {
-                response.end("File wasn't found");
-            }
-            response.writeHead(200, {"Content-Type": "text/javascript"});
-            response.end(data);
-        });
-    } else if (pathname === '/getStudents') {
-        fs.readFile(baseRoot + '/app/studentsList/students.json', function (err, data) {
-            if (err) {
-                response.end("File wasn't found");
-            }
-            response.writeHead(200, {"Content-Type": "text/plain"});
-            response.end(data);
-        });
-    } else if (pathname.indexOf('/') != -1) {
-        fs.readFile(baseRoot + '/index.html', function (err, data) {
-            if (err) {
-                response.end("File wasn't found");
-            }
-
-            response.writeHead(200, {"Content-Type": "text/html"});
-            response.end(data);
-        });
+    if (pathname.indexOf('.css') != -1 || pathname.indexOf('.js') != -1 || pathname.indexOf('.html') != -1 || pathname.indexOf('.json') != -1) {
+        addFile(pathname, response, contentType);
     }
 }
 
 http.createServer(onRequest).listen(3000);
 
 console.log('Server is started');
+
+function addFile(pathname, response, contentType) {
+    fs.readFile(baseRoot + pathname, function (err, data) {
+            if (err) {
+                response.end("File wasn't found");
+            }
+            response.writeHead(200, {"Content-Type": contentType});
+            response.end(data);
+    });
+}
+
+function getContentType (pathname) {
+    var extname = String(path.extname(pathname)).toLowerCase(),
+        mimeTypes = {
+            '.html': 'text/html',
+            '.js': 'text/javascript',
+            '.css': 'text/css',
+            '.json': 'application/json',
+            '.png': 'image/png',
+            '.jpg': 'image/jpg',
+            '.gif': 'image/gif',
+            '.wav': 'audio/wav',
+            '.mp4': 'video/mp4',
+            '.woff': 'application/font-woff',
+            '.ttf': 'applilcation/font-ttf',
+            '.eot': 'application/vnd.ms-fontobject',
+            '.otf': 'application/font-otf',
+            '.svg': 'application/image/svg+xml'
+        };
+
+    return mimeTypes[extname];
+}
