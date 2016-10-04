@@ -24,7 +24,7 @@ function GetTime () {
         ajax.addEventListener('readystatechange',
             function () {
                 if (ajax.readyState === 4 && ajax.status === 200) {
-                    console.log(ajax.responseText);
+                    time.innerHTML = ajax.responseText;
                 }
             }, false);
 
