@@ -1,29 +1,28 @@
-var request = {
-    loadAsync: function (URI, callback) {
-        var ajax = this.getAjax();
+var request = (function () {
+    var routes = {
+        'students': '/getStudents'
+    };
 
-        ajax.open('GET', URI, true);
+    function _load (name, callback) {
+        var ajax = _getAjax();
+
+        ajax.open('GET', _uri(name), true);
 
         ajax.addEventListener('readystatechange',
             function () {
                 if (ajax.readyState === 4 && ajax.status === 200) {
-                    callback(ajax.responseText);
+                    callback(JSON.parse(ajax.responseText));
                 }
             }, false);
 
         ajax.send();
-    },
-    loadSync: function (URI, callback) {
-        var ajax = this.getAjax();
-    
-        ajax.open('GET', URI, false);
-        ajax.send(null);
+    }
 
-        if (ajax.status === 200) {
-            callback(ajax.responseText);
-        }
-    },
-    getAjax: function () {
+    function _uri(name) {
+        return routes[name];
+    }
+
+    function _getAjax () {
         var ajax;
 
         if (XMLHttpRequest) {
@@ -34,4 +33,9 @@ var request = {
 
         return ajax;
     }
-};
+
+    return {
+        load: _load
+    };
+})();
+    
