@@ -5,8 +5,10 @@ function StudentsListController () {
         addInfoView = new AddInfoView(),
         studentsListView;
 
-    mediator.sub('students loaded', createList);
     info.appendChild(addInfoView.render());
+
+    studentsCollection.init();
+    studentsCollection.on('inited', createList);
 
     function createList () {
         studentsListView = new StudentsListView(studentsCollection);

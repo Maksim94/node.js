@@ -1,16 +1,15 @@
 function StudentsCollection () {
-    var students = [];
+    var students = [],
+        observer = new PubSub();
 
-    request.load('students', initStudents);
+    this.init = function () {
+        request.load('students', initStudents);
+    };
 
-    function initStudents (response) {
-        response.forEach(function (obj) {
-            students.push(new Student(obj.lastName, obj.name, obj.gender, obj.skype));
-        });
-
-        mediator.pub('students loaded', students);
+    this.on = function (event, fn) {
+        observer.sub(event, fn);
     }
-    
+
     this.forEach = function (iterator) {
         students.forEach(iterator);
     };
@@ -18,4 +17,12 @@ function StudentsCollection () {
     this.remove = function (student) {
         students.splice(students.indexOf(student), 1);
     };
+
+    function initStudents (response) {
+        response.forEach(function (obj) {
+            students.push(new Student(obj.lastName, obj.name, obj.gender, obj.skype));
+        });
+        
+        observer.pub('inited');
+    }
 }
