@@ -1,12 +1,14 @@
 function StudentsListView (studentsCollection) {
-    mediator.sub('studentRemoved', removeStudent);
+    //mediator.sub('student removed', removeStudent);
 
     this.render = function () {
         var fragment = document.createDocumentFragment(),
             oneStudent;
 
         studentsCollection.forEach(function (student) {
-            oneStudent = new OneStudentView(student, removeStudent);
+            student.on('student removed', removeStudent);
+            
+            oneStudent = new OneStudentView(student);
 
             fragment.appendChild(oneStudent.render());
         });
@@ -14,7 +16,7 @@ function StudentsListView (studentsCollection) {
         return fragment;
     };
 
-	function removeStudent (student) {
-		studentsCollection.remove(student);
+	function removeStudent () {
+		studentsCollection.remove();
 	}
 }

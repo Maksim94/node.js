@@ -1,10 +1,11 @@
 function AddInfoView () {
     var info = document.createElement('div'),
+        observer = new PubSub(),
         newLastName, newName,
         newGender, newSkype,
         btn;
 
-    mediator.sub('studentClicked', showDetails);
+    mediator.sub('student clicked', showDetails);
 
     this.render = function () {
         return info;
@@ -54,7 +55,6 @@ function AddInfoView () {
             student.setSkype(newSkype.value);
 
             addInfo();
-            mediator.pub('studentChanged', student);
         }
     }
 }

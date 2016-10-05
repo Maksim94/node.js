@@ -5,13 +5,14 @@ function StudentsListController () {
         addInfoView = new AddInfoView(),
         studentsListView;
 
-    info.appendChild(addInfoView.render());
-
-    studentsCollection.init();
     studentsCollection.on('inited', createList);
+    studentsCollection.init();
+
+    info.appendChild(addInfoView.render());
 
     function createList () {
         studentsListView = new StudentsListView(studentsCollection);
         studentsList.appendChild(studentsListView.render());
     }
+
 }

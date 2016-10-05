@@ -1,6 +1,14 @@
 function StudentsCollection () {
     var students = [],
-        observer = new PubSub();
+        observer = new PubSub(),
+        initStudents = function (response) {
+            response.forEach(function (obj) {
+                students.push(new Student(obj.lastName, obj.name, obj.gender, obj.skype));
+            });
+            
+            observer.pub('inited');
+        };
+
 
     this.init = function () {
         request.load('students', initStudents);
@@ -17,12 +25,4 @@ function StudentsCollection () {
     this.remove = function (student) {
         students.splice(students.indexOf(student), 1);
     };
-
-    function initStudents (response) {
-        response.forEach(function (obj) {
-            students.push(new Student(obj.lastName, obj.name, obj.gender, obj.skype));
-        });
-        
-        observer.pub('inited');
-    }
 }

@@ -1,7 +1,7 @@
 function OneStudentView (student) {
     var el = document.createElement('li');
 
-    mediator.sub('studentChanged', fillElement);
+    student.on('student changed', fillElement);
 
     this.render = function () {
         fillElement();
@@ -17,15 +17,15 @@ function OneStudentView (student) {
     }
 
     function showDetails () {
-        mediator.pub('studentClicked', student);
+        mediator.pub('student clicked', student);
     }
 
     function deleteStudent (e) {
         e.stopPropagation();
 
         el.remove();
+        student.deleted();
 
-        mediator.pub('studentRemoved', student);
-        mediator.pub('studentClicked', 'delete');
+        mediator.pub('student clicked', 'delete');
     }
 }
