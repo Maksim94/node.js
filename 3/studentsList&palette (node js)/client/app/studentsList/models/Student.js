@@ -11,17 +11,14 @@ function Student (_lastName, _name, _gender, _skype) {
 
     this.deleted = function () {
         observer.pub('student removed');
-    }
-
-    this.changed = function () {
-        observer.pub('student changed');
-    }
+    };
 
 	this.getName = function () {
         return name;
     };
     this.setName = function (value) {
         name = value;
+        observer.pub('student changed');
     };
 
     this.getLastName = function () {

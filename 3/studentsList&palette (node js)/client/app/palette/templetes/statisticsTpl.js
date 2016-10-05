@@ -1,4 +1,4 @@
-var statisticsTpl = {};
+var statTpl = {};
 
 // statisticsTpl.addStatistics =
 //     `<h2>Statistics</h2>
@@ -12,9 +12,9 @@ var statisticsTpl = {};
 //     return statistics;
 //};
 
-statisticsTpl.addStatistics = `:color: :counter`;
+statTpl.addStat = `:color: :counter`;
 
-statisticsTpl.replacer = function (statistics, obj) {
+statTpl.replacer = function (statistics, obj) {
     for (var key in obj) {
         statistics = statistics.replace(':' + key, obj[key]);
     }

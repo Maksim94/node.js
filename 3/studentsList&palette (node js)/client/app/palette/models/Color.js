@@ -7,10 +7,6 @@ function Color (_color) {
         observer.sub(event, fn);
     }
 
-    this.stat = function () {
-        observer.pub('statistics request');
-    }
-
     this.getColor = function () {
         return color;
     };
@@ -21,6 +17,7 @@ function Color (_color) {
 
     this.increaseCounter = function () {
         counter++;
+        observer.pub('statistics request');
     };
 
     this.toJSON = function () {

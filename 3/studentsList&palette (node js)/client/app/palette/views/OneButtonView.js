@@ -14,7 +14,5 @@ function OneButtonView (color) {
 		mediator.pub('color selected', color.getColor());
 
         color.increaseCounter();
-			
-        color.stat();
 	}
 }

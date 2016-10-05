@@ -10,6 +10,6 @@ function OneStatisticsView (color) {
     };
 
     function refreshStatistics () {
-        el.innerHTML = statisticsTpl.replacer(statisticsTpl.addStatistics, color.toJSON());
+        el.innerHTML = statTpl.replacer(statTpl.addStat, color.toJSON());
     }
 }
