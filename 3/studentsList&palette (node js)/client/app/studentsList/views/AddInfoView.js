@@ -55,6 +55,7 @@ function AddInfoView () {
             student.setSkype(newSkype.value);
 
             addInfo();
+            student.changed();
         }
     }
 }

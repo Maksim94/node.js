@@ -13,12 +13,15 @@ function Student (_lastName, _name, _gender, _skype) {
         observer.pub('student removed');
     }
 
+    this.changed = function () {
+        observer.pub('student changed');
+    }
+
 	this.getName = function () {
         return name;
     };
     this.setName = function (value) {
         name = value;
-        observer.pub('student changed');
     };
 
     this.getLastName = function () {
@@ -26,7 +29,6 @@ function Student (_lastName, _name, _gender, _skype) {
     };
     this.setLastName = function (value) {
         lastName = value;
-        observer.pub('student changed');
     };    
 
     this.getGender = function () {
@@ -34,7 +36,6 @@ function Student (_lastName, _name, _gender, _skype) {
     };
     this.setGender = function (value) {
         gender = value;
-        observer.pub('student changed');
     };
 
     this.getSkype = function () {
@@ -42,7 +43,6 @@ function Student (_lastName, _name, _gender, _skype) {
     };
     this.setSkype = function (value) {
         skype = value;
-        observer.pub('student changed');
     };
 
     this.toJSON = function () {
