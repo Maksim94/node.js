@@ -10,7 +10,7 @@ function Student (_lastName, _name, _gender, _skype) {
     };
 
     this.deleted = function () {
-        observer.pub('student removed');
+        observer.pub('student removed', this);
     };
 
 	this.getName = function () {

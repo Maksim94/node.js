@@ -9,14 +9,13 @@ function StudentsCollection () {
             observer.pub('inited');
         };
 
-
     this.init = function () {
         request.load('students', initStudents);
     };
 
     this.on = function (event, fn) {
         observer.sub(event, fn);
-    }
+    };
 
     this.forEach = function (iterator) {
         students.forEach(iterator);
