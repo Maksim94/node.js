@@ -5,7 +5,7 @@ function Color (_color) {
 
     this.on = function (event, fn) {
         observer.sub(event, fn);
-    }
+    };
 
     this.getColor = function () {
         return color;

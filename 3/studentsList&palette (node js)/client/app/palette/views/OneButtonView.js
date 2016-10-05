@@ -5,12 +5,12 @@ function OneButtonView (color) {
         el.classList.add('btn-color', color.getColor());
         el.innerHTML = color.getColor().toUpperCase();
 
-        el.addEventListener('click', handler, false);
+        el.addEventListener('click', postColor, false);
 
         return el;
     };
 
-	function handler () {
+	function postColor () {
 		mediator.pub('color selected', color.getColor());
 
         color.increaseCounter();
