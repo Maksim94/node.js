@@ -5,7 +5,7 @@ function PaletteController () {
         colorsCollection = new ColorsCollection(),
         paletteView = new PaletteView(colorsCollection),
 		filledView = new FilledView(),
-		statisticsView = new StatisticsView();
+		statisticsView = new StatisticsView(colorsCollection);
 		
 	paletteList.appendChild(paletteView.render());
     filled.appendChild(filledView.render());

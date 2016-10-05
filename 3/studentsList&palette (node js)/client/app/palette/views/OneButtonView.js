@@ -15,6 +15,6 @@ function OneButtonView (color) {
 
         color.increaseCounter();
 			
-        mediator.pub('statistics request', color.toJSON());
+        color.stat();
 	}
 }
