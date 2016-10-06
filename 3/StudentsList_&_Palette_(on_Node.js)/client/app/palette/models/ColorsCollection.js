@@ -5,10 +5,6 @@ function ColorsCollection () {
             new Color('blue')
         ];
 
-/*    this.setColors = function (colorsArray) {
-        colors = colorsArray;
-    };*/
-
     this.forEach = function (iterator) {
 		colors.forEach(iterator);
 	};
